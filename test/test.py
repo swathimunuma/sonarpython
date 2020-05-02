@@ -39,6 +39,26 @@ def test_parse_optional_statement():
     assert optional
     assert step == 9
 
+@pytest.mark.cms
+def test_parse_optional_statement():
+    line = "abc"
+    line, optional, step = cms_configurator.parse_optional_statement(line)
+    assert line == "abc"
+    assert not optional
+    assert step == 1
+
+    line = "[*n*]"
+    line, optional, step = cms_configurator.parse_optional_statement(line)
+    assert line == ""
+    assert optional
+    assert step == 1
+
+    line = "[*n9*]"
+    line, optional, step = cms_configurator.parse_optional_statement(line)
+    assert line == ""
+    assert optional
+    assert step == 9
+
 
 @pytest.mark.cms
 def test_parse_timeout_option_statement():
